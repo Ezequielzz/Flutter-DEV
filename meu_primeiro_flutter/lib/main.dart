@@ -25,31 +25,72 @@ class _CalculadoraState extends State<Calculadora> {
   String _resultado = '';
 
   void _calcular(String operacao) {
-  double numero1 = double.tryParse(_controllerNumero1.text) ?? 0.0;
-  double numero2 = double.tryParse(_controllerNumero2.text) ?? 0.0;
-  double resultado = 0.0; // Inicializando a variável resultado
+    double numero1 = double.tryParse(_controllerNumero1.text) ?? 0.0;
+    double numero2 = double.tryParse(_controllerNumero2.text) ?? 0.0;
+    double? resultado = 0.0; // Inicializando a variável resultado
 
-  setState(() {
-    if (operacao == 'Somar') {
-      resultado = numero1 + numero2;
-    } else if (operacao == 'Subtrair') {
-      resultado = numero1 - numero2;
-    } else if (operacao == 'Multiplicar') {
-      resultado = numero1 * numero2;
-    } else if (operacao == 'Dividir') {
-      if (numero2 == 0) {
-        _resultado = "Não é possível dividir por 0";
-        return;
-      } else {
-        resultado = numero1 / numero2;
+    setState(() {
+      // if (operacao == 'Somar') {
+      //   resultado = numero1 + numero2;
+      // } else if (operacao == 'Subtrair') {
+      //   resultado = numero1 - numero2;
+      // } else if (operacao == 'Multiplicar') {
+      //   resultado = numero1 * numero2;
+      // } else if (operacao == 'Dividir') {
+      //   if (numero2 == 0) {
+      //     _resultado = "Não é possível dividir por 0";
+      //     return;
+      //   } else {
+      //     resultado = numero1 / numero2;
+      //   }
+      // } else if (operacao == 'Potência') {
+      //   resultado = pow(numero1, numero2) as double;
+      // }
+
+      switch (operacao) {
+        case 'Somar':
+          {
+            resultado = numero1 + numero2;
+          }
+          break;
+
+        case 'Subtrair':
+          {
+            resultado = numero1 - numero2;
+          }
+          break;
+
+        case 'Multiplicar':
+          {
+            resultado = numero1 * numero2;
+          }
+          break;
+
+        case 'Dividir':
+          {
+            if (numero2 == 0) {
+              _resultado = "Não é possível dividir por 0";
+              return;
+            } else {
+              resultado = numero1 / numero2;
+            }
+          }
+          break;
+
+        case 'Potência':
+          {
+            resultado = pow(numero1, numero2) as double;
+          }
+          break;
+
+        default:
+        resultado = null;
+          break;
       }
-    }
-    _resultado = 'Resultado: $resultado';
-  });
-}
 
-
-
+      _resultado = 'Resultado: $resultado';
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,17 +124,22 @@ class _CalculadoraState extends State<Calculadora> {
             ElevatedButton(
               onPressed: () => _calcular('Subtrair'),
               child: Text('Subtrair'),
-            ), 
+            ),
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () => _calcular('Multiplicar'),
               child: Text('Multiplicar'),
-            ), 
+            ),
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () => _calcular('Dividir'),
               child: Text('Dividir'),
-            ), 
+            ),
+            SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () => _calcular('Potência'),
+              child: Text('Potência'),
+            ),
             SizedBox(height: 16.0),
             Text(
               _resultado,
