@@ -24,6 +24,7 @@ class _CalculadoraState extends State<Calculadora> {
   String _resultado = '';
   int numeroSorteado = Random().nextInt(100) + 1;
   int cont = 0;
+  bool acertou = false;
 
   void _adivinhar() {
     setState(() {
@@ -32,6 +33,7 @@ class _CalculadoraState extends State<Calculadora> {
       if (numero != null) {
         if (numero == numeroSorteado) {
           _resultado = 'Você Acertou! Usou $cont tentativas';
+          acertou = true;
           cont = 0;
           numeroSorteado = Random().nextInt(100) + 1;
         } else if (numero > numeroSorteado) {
@@ -49,6 +51,15 @@ class _CalculadoraState extends State<Calculadora> {
         }
         cont++;
       }
+    });
+  }
+
+  void _reiniciar() {
+    setState(() {
+      _controllerNumero1.text = '';
+      _resultado = '';
+      cont = 0;
+      acertou = false;
     });
   }
 
@@ -71,10 +82,16 @@ class _CalculadoraState extends State<Calculadora> {
                   InputDecoration(labelText: 'Insira um número de 1 a 100'),
             ),
             SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () => _adivinhar(),
-              child: Text('Adivinhar'),
-            ),
+            if (!acertou)
+              ElevatedButton(
+                onPressed: () => _adivinhar(),
+                child: Text('Adivinhar'),
+              )
+            else
+              ElevatedButton(
+                onPressed: () => _reiniciar(),
+                child: Text('Reiniciar'),
+              ),
             SizedBox(height: 16.0),
             Text(
               _resultado,
