@@ -6,7 +6,6 @@ class ListaTarefasScreen extends StatelessWidget {
   // Controlador para o campo de texto de nova tarefa
   final TextEditingController _controller = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,19 +47,31 @@ class ListaTarefasScreen extends StatelessWidget {
                     return ListTile(
                       // Exibição do texto da tarefa
                       title: Text(model.tarefas[index].descricao),
-                      // Checkbox para marcar a tarefa como concluída
-                      trailing: Checkbox(
-                        value: model.tarefas[index].concluida,
-                        onChanged: (value) {
-                          // Chamando o método marcarComoConcluida do Provider para atualizar o estado
-                          model.marcarComoConcluida(index);
-                        },
+                      // Checkbox para marcar a tarefa como concluída e botão para desmarcar
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Checkbox(
+                            value: model.tarefas[index].concluida,
+                            onChanged: (value) {
+                              if (value != null) {
+                                if (value) {
+                                  // Chamando o método marcarComoConcluida do Provider para atualizar o estado
+                                  model.marcarComoConcluida(index);
+                                } else {
+                                  model.desmarcarComoConcluida(index);
+                                }
+                              }
+                            },
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.clear),
+                            onPressed: () {
+                              model.excluirTarefa(index);
+                            },
+                          ),
+                        ],
                       ),
-                      // Exclui a tarefa ao manter pressionado
-                      onLongPress: () {
-                        // Chamando o método excluirTarefa do Provider para atualizar o estado
-                        model.excluirTarefa(index);
-                      },
                     );
                   },
                 );
@@ -72,4 +83,3 @@ class ListaTarefasScreen extends StatelessWidget {
     );
   }
 }
-
