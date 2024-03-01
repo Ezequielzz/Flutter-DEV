@@ -10,15 +10,19 @@ class ListaCompraController extends ChangeNotifier {
 
   // Métodos CRUD
 
-  // Método para adicionar uma Compra à lista 
+  // Método para adicionar uma Compra à lista
   void adicionarCompra(String descricao, BuildContext context) {
     if (descricao.trim().isNotEmpty)
     // Verifica se a compra já existe na lista
     if (!_compras.any((compra) => compra.descricao == descricao)) {
       // Se não existe, adiciona à lista
       _compras.add(Compra(descricao.trim(), false));
+
+      // Ordenar a lista alfabeticamente
+      _compras.sort((a, b) => a.descricao.compareTo(b.descricao));
+
       // Notifica os ouvintes (widgets) sobre a mudança no estado
-    notifyListeners();
+      notifyListeners();
     } else {
       print("Este produto já existe na sua lista");
       showDialog(
@@ -53,10 +57,27 @@ class ListaCompraController extends ChangeNotifier {
     }
   }
 
-   // Método para editar uma compra
-  void editarCompra(int index, String novaDescricao) {
-    _compras[index].descricao = novaDescricao;
-    notifyListeners();
+  // Método para editar uma compra
+  void editarCompra(int index, String novaDescricao, BuildContext context) {
+    if (!_compras.any((compra) => compra.descricao == novaDescricao)) {
+      _compras[index].descricao = novaDescricao;
+      notifyListeners();
+    } else {
+      print("Este produto já existe na sua lista");
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text("Compras"),
+              content: Text("Item já existe"),
+            );
+          });
+    }
+  }
+
+   // Verifica se a compra já existe na lista
+  bool itemJaExiste(String descricao) {
+    return _compras.any((compra) => compra.descricao == descricao);
   }
 
   // Método para excluir uma Compra como concluída com base no índice
