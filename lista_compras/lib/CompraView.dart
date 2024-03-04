@@ -12,11 +12,13 @@ class ListaCompraScreen extends StatelessWidget {
         title: Text(
           'Lista de compras',
           style: TextStyle(
-            color: Colors.white, // Define a cor do texto da AppBar
+            color: Color.fromARGB(
+                255, 255, 230, 0), // Define a cor do texto da AppBar
             fontWeight: FontWeight.bold, // Define o peso da fonte como negrito
           ),
         ),
-        backgroundColor: Color.fromARGB(255, 0, 153, 255), // Define a cor da AppBar
+        backgroundColor:
+            Color.fromARGB(255, 0, 60, 255), // Define a cor da AppBar
       ),
       body: Column(
         children: [
@@ -24,8 +26,19 @@ class ListaCompraScreen extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: _controller,
+              cursorColor: Color.fromARGB(255, 0, 50, 212), // Define a cor do cursor
               decoration: InputDecoration(
                 labelText: 'Nova Compra',
+                labelStyle: TextStyle(color: Colors.black),
+                floatingLabelStyle:
+                    TextStyle(color: Color.fromARGB(255, 0, 50, 212)),
+                focusedBorder: UnderlineInputBorder(
+                  // Define a "barrinha" quando o campo está focado
+                  borderSide: BorderSide(
+                      color: Color.fromARGB(255, 0, 60,
+                          255)), // Define a cor da "barrinha" quando o campo está focado
+                          
+                ),
                 suffixIcon: IconButton(
                   onPressed: () {
                     if (_controller.text.length < 1) {
@@ -88,11 +101,15 @@ class ListaCompraScreen extends StatelessWidget {
                                 }
                               }
                             },
+                            checkColor: Color.fromARGB(255, 255, 255,
+                                255), // Define a cor da marca de seleção (tick)
+                            activeColor: Color.fromARGB(255, 0, 60,
+                                255), // Define a cor do checkbox quando está marcado
                           ),
                           IconButton(
                             icon: Icon(Icons.clear),
                             onPressed: () {
-                              model.excluirCompra(index);
+                              _mostrarDialogoExclusao(context, model, index);
                             },
                           ),
                         ],
@@ -108,35 +125,100 @@ class ListaCompraScreen extends StatelessWidget {
     );
   }
 
-  _mostrarDialogoEdicao(
-      BuildContext context, ListaCompraController model, int index) {
-    TextEditingController _controller =
-        TextEditingController(text: model.compras[index].descricao);
+_mostrarDialogoEdicao(
+  BuildContext context, ListaCompraController model, int index) {
+  TextEditingController _controller =
+      TextEditingController(text: model.compras[index].descricao);
 
+  bool _isError = false;
+
+  showDialog(
+    context: context,
+    builder: (context) {
+      return StatefulBuilder(
+        builder: (context, setState) {
+          return AlertDialog(
+            title: Text('Editar Compra'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: _controller,
+                  onChanged: (text) {
+                    setState(() {
+                      _isError = model.itemJaExiste(text);
+                    });
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'Nova descrição',
+                    errorText: _isError ? 'Item já existe' : null,
+                  ),
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(
+                style: TextButton.styleFrom(
+                  foregroundColor: Color.fromARGB(
+                      255, 0, 60, 255), // Define a cor do texto do botão
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Cancelar'),
+              ),
+              TextButton(
+                style: TextButton.styleFrom(
+                  foregroundColor: Color.fromARGB(
+                      255, 0, 60, 255), // Define a cor do texto do botão
+                ),
+                onPressed: !_isError
+                    ? () {
+                        model.editarCompra(index, _controller.text, context);
+                        Navigator.of(context).pop();
+                      }
+                    : null,
+                child: Text('Salvar'),
+              ),
+            ],
+          );
+        },
+      );
+    },
+  );
+}
+
+
+
+
+  _mostrarDialogoExclusao(
+      BuildContext context, ListaCompraController model, int index) {
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Editar Compra'),
-          content: TextField(
-            controller: _controller,
-            decoration: InputDecoration(
-              labelText: 'Nova descrição',
-            ),
-          ),
+          title: Text('Excluir Compra'),
           actions: <Widget>[
             TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Color.fromARGB(
+                    255, 0, 60, 255), // Define a cor do texto do botão
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
               child: Text('Cancelar'),
             ),
             TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Color.fromARGB(
+                    255, 0, 60, 255), // Define a cor do texto do botão
+              ),
               onPressed: () {
-                model.editarCompra(index, _controller.text);
+                model.excluirCompra(index);
                 Navigator.of(context).pop();
               },
-              child: Text('Salvar'),
+              child: Text('Excluir'),
             ),
           ],
         );
