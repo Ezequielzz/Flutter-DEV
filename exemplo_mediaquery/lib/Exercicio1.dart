@@ -1,4 +1,3 @@
-import 'package:exemplo_mediaquery/ExemploMediaQuery.dart';
 import 'package:flutter/material.dart';
 
 void main() {
