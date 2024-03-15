@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
                   leading: Icon(Icons.alarm),
                   trailing: Icon(Icons.arrow_forward),
                   onTap: () {
-                    // Adicione ação ao clicar no card se necessário
                   },
                 ),
               ),
@@ -32,7 +31,6 @@ class MyApp extends StatelessWidget {
                   leading: Icon(Icons.attach_money),
                   trailing: Icon(Icons.arrow_forward),
                   onTap: () {
-                    // Adicione ação ao clicar no card se necessário
                   },
                 ),
               ),
@@ -43,7 +41,6 @@ class MyApp extends StatelessWidget {
                   leading: Icon(Icons.zoom_in),
                   trailing: Icon(Icons.arrow_forward),
                   onTap: () {
-                    // Adicione ação ao clicar no card se necessário
                   },
                 ),
               ),
@@ -54,7 +51,6 @@ class MyApp extends StatelessWidget {
                   leading: Icon(Icons.yard),
                   trailing: Icon(Icons.arrow_forward),
                   onTap: () {
-                    // Adicione ação ao clicar no card se necessário
                   },
                 ),
               ),
@@ -65,7 +61,6 @@ class MyApp extends StatelessWidget {
                   leading: Icon(Icons.wallet),
                   trailing: Icon(Icons.arrow_forward),
                   onTap: () {
-                    // Adicione ação ao clicar no card se necessário
                   },
                 ),
               ),
@@ -76,7 +71,6 @@ class MyApp extends StatelessWidget {
                   leading: Icon(Icons.tab),
                   trailing: Icon(Icons.arrow_forward),
                   onTap: () {
-                    // Adicione ação ao clicar no card se necessário
                   },
                 ),
               ),
@@ -87,7 +81,6 @@ class MyApp extends StatelessWidget {
                   leading: Icon(Icons.face),
                   trailing: Icon(Icons.arrow_forward),
                   onTap: () {
-                    // Adicione ação ao clicar no card se necessário
                   },
                 ),
               ),
@@ -98,7 +91,6 @@ class MyApp extends StatelessWidget {
                   leading: Icon(Icons.star),
                   trailing: Icon(Icons.arrow_forward),
                   onTap: () {
-                    // Adicione ação ao clicar no card se necessário
                   },
                 ),
               ),
@@ -109,7 +101,6 @@ class MyApp extends StatelessWidget {
                   leading: Icon(Icons.r_mobiledata),
                   trailing: Icon(Icons.arrow_forward),
                   onTap: () {
-                    // Adicione ação ao clicar no card se necessário
                   },
                 ),
               ),
@@ -120,7 +111,6 @@ class MyApp extends StatelessWidget {
                   leading: Icon(Icons.padding),
                   trailing: Icon(Icons.arrow_forward),
                   onTap: () {
-                    // Adicione ação ao clicar no card se necessário
                   },
                 ),
               ),
