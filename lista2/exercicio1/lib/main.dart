@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Texto Aqui :)',
+                  'Hello World :)',
                   style: TextStyle(fontSize: 18.0),
                 ),
                 SizedBox(height: 20.0),
