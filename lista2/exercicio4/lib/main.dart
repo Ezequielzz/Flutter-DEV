@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:exercicio4/CadastroController.dart';
+import 'package:exercicio4/CadastroView.dart'; // Importe sua CadastroView aqui
 
 void main() {
   runApp(MyApp());
@@ -7,46 +10,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Exercicio 4'),
+    return ChangeNotifierProvider(
+      create: (context) => CadastroController(),
+      child: MaterialApp(
+        title: 'MyApp',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
         ),
-        body: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Cadastro(),
-        ),
+        home: CadastroView(), // Defina sua CadastroView como a tela inicial do aplicativo
       ),
-    );
-  }
-}
-
-class Cadastro extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        TextField(
-          decoration: InputDecoration(labelText: 'Nome'),
-        ),
-        SizedBox(height: 16.0),
-        TextField(
-          decoration: InputDecoration(labelText: 'E-mail'),
-        ),
-        SizedBox(height: 16.0),
-        TextField(
-          decoration: InputDecoration(labelText: 'Senha'),
-          obscureText: true,
-        ),
-        SizedBox(height: 32.0),
-        ElevatedButton(
-          onPressed: () {
-            
-          },
-          child: Text('Cadastrar'),
-        ),
-      ],
     );
   }
 }
