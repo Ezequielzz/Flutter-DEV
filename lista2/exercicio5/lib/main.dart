@@ -7,11 +7,19 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    MediaQueryData mediaQueryData = MediaQuery.of(context);
+
+    double screenWidth = mediaQueryData.size.width;
+
+    double imageSize = screenWidth * 0.04;
+    double titleSize = screenWidth * 0.04;
+    double textSize = screenWidth * 0.03;
+    
     return MaterialApp(
-      title: 'Exercicio 1',
+      title: 'Exercicio 5',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Exercicio 1'),
+          title: Text('Exercicio 5'),
         ),
         body: Container(
           child: Container(
@@ -22,7 +30,7 @@ class MyApp extends StatelessWidget {
               children: [
                 Text(
                   'Hello World :)',
-                  style: TextStyle(fontSize: 18.0),
+                  style: TextStyle(fontSize: titleSize),
                 ),
                 SizedBox(height: 20.0),
                 Row(
@@ -31,16 +39,16 @@ class MyApp extends StatelessWidget {
                     Icon(
                       Icons.favorite,
                       color: Colors.red,
-                      size: 30.0,
+                      size: imageSize,
                     ),
                     Text(
                       'Flutter',
-                      style: TextStyle(fontSize: 20.0),
+                      style: TextStyle(fontSize: textSize),
                     ),
                     Image.asset(
                       'assets/images/mclaren.png',
-                      width: 50.0,
-                      height: 50.0,
+                      width: imageSize,
+                      height: imageSize,
                     ),
                   ],
                 ),
