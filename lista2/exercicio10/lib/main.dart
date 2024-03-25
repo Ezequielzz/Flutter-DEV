@@ -26,7 +26,6 @@ class _ProgressIndicatorDemoState extends State<ProgressIndicatorDemo> {
       _progressValue = 0.0; // Reseta o progresso
     });
 
-    // Simula uma tarefa que leva 5 segundos
     Future.delayed(Duration(seconds: 1), () {
       setState(() {
         _progressValue = 0.2; // 20% de progresso
@@ -58,7 +57,7 @@ class _ProgressIndicatorDemoState extends State<ProgressIndicatorDemo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Barra de Progresso Dinâmica'),
+        title: Text('Exercicio 10'),
       ),
       body: Center(
         child: Column(

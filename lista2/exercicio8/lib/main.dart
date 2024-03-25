@@ -10,20 +10,20 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Exemplo de Imagens'),
+          title: Text('Exercicio 8'),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Image.network(
-                'https://example.com/image.jpg',
+                'https://i.pinimg.com/736x/9e/b8/00/9eb8007417dc0ba73386f42873a0f1c5.jpg',
                 width: 200,
                 height: 200,
               ),
               SizedBox(height: 20),
               Image.asset(
-                'assets/local_image.png',
+                'assets/images/mclaren.png',
                 width: 200,
                 height: 200,
               ),
