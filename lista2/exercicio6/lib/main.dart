@@ -8,12 +8,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(), // Define a tela inicial como HomeScreen
+      home: TelaInicial(),
     );
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class TelaInicial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,22 +34,23 @@ class HomeScreen extends StatelessWidget {
               child: Text("Drawer"),
             ),
             ListTile(
-              title: const Text('Item 1'),
+              title: const Text('Tela Inicial'),
               onTap: () {},
             ),
             ListTile(
-              title: const Text('Item 2'),
+              title: const Text('Segunda Tela'),
               onTap: () {
-                // Navega para a segunda tela quando o Item 2 é tocado
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SecondScreen()),
+                  MaterialPageRoute(builder: (context) => SegundaTela()),
                 );
               },
             ),
             ListTile(
               title: const Text('Item 3'),
-              onTap: () {},
+              onTap: () {
+                
+              },
             )
           ],
         ),
@@ -58,16 +59,16 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class SecondScreen extends StatelessWidget {
+class SegundaTela extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Second Screen'),
+        title: Text('Segunda Tela'),
       ),
       body: Center(
         child: Text(
-          'This is the second screen!',
+          'Olá!',
           style: TextStyle(fontSize: 24.0),
         ),
       ),
