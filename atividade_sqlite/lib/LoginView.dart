@@ -45,8 +45,6 @@ class LoginScreen extends StatelessWidget {
                         userEmail:
                             emailController.text, // Passar o e-mail do usuário
                         onLogout: () {
-                          // Implemente a função de logout aqui se necessário
-                          // Por exemplo, você pode limpar os dados de autenticação e navegar de volta para a tela de login
                         },
                       ),
                     ),

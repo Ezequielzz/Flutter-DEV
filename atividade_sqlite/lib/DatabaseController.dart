@@ -103,6 +103,4 @@ class BancoDadosCrud {
     return false; // Retorna false se ocorreu um erro durante o processo de login
   }
 }
-
-
 }
