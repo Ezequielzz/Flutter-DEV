@@ -1,7 +1,7 @@
 import 'package:atividade_sqlite/DatabaseController.dart';
 import 'package:flutter/material.dart';
 
-class CadastroUsuarioScreen extends StatelessWidget {
+class CadastroScreen extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();

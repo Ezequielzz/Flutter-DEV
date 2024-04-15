@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -54,9 +53,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return MaterialApp(
       theme: ThemeData(
         brightness: _darkMode ? Brightness.dark : Brightness.light,
-        textTheme: TextTheme(
-          bodyText1: TextStyle(fontSize: _textSize),
-        ),
       ),
       home: DefaultTabController(
         length: 3,
@@ -95,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: <Widget>[
                     Text(
                       'Escolha o Tamanho da Fonte!',
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: _textSize),
                     ),
                     SizedBox(height: 20),
                     ElevatedButton(
