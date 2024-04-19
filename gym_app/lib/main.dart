@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "SA2",
+      title: "GymPass",
       debugShowCheckedModeBanner: false,
       home: LoginView(),
     );
