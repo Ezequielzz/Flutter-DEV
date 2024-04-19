@@ -14,7 +14,6 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   late SharedPreferences
       _prefs; // Preferências compartilhadas para armazenar o estado do exercicio
-  bool _darkMode = false; // Estado atual do tema
   List<bool> _status = [false, false, false, false, false, false];
   List<String> _exercicio = [
     'ArmDay',
@@ -38,20 +37,10 @@ class _HomeViewState extends State<HomeView> {
     _prefs = await SharedPreferences
         .getInstance(); // Obtém as preferências compartilhadas
     setState(() {
-      _darkMode = _prefs.getBool('${email}_darkMode') ??
-          false; // se o valor da esquerda é nulo então dê um valor false
       for (int i = 0; i < _status.length; i++) {
         _status[i] = _prefs.getBool('${email}_${_exercicio[i]}') ?? false;
       }
     });
-  }
-
-  Future<void> _mudarDarkMode() async {
-    setState(() {
-      _darkMode = !_darkMode; // Inverte o estado do tema escuro
-    });
-    await _prefs.setBool('${email}_darkMode',
-        _darkMode); // Salva o estado do tema escuro nas preferências compartilhadas
   }
 
   Future<void> _mudarStatus(int index) async {
@@ -63,12 +52,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedTheme(
-      data: _darkMode
-          ? ThemeData.dark()
-          : ThemeData.light(), // Define o tema com base no modo escuro
-      duration: Duration(milliseconds: 500), // Define a duração da transição
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text('GymPass'), // Título da barra de aplicativos
         ),
@@ -77,11 +61,7 @@ class _HomeViewState extends State<HomeView> {
             itemCount: _exercicio.length,
             itemBuilder: (context, index) {
               return GestureDetector(
-                onTap: () {
-                  if () {
-                    
-                  }
-                },
+                onTap: () {},
                 child: Card(
                   elevation: 4.0,
                   shape: RoundedRectangleBorder(
@@ -129,7 +109,6 @@ class _HomeViewState extends State<HomeView> {
             },
           ),
         ),
-      ),
-    );
+      );
   }
 }
