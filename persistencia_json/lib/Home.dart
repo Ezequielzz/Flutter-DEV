@@ -1,8 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:persistencia_json/Produto.dart';
+import 'package:persistencia_json/Controller/produto_controller.dart';
+import 'package:persistencia_json/Model/produto.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,39 +11,53 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final TextEditingController _nomeController = TextEditingController();
-  final TextEditingController _precoController = TextEditingController();
-  final TextEditingController _categoriaController = TextEditingController();
-
-  List<Produto> _produtos = [];
+  ProdutoController _produtoController = ProdutoController();
 
   @override
   void initState() {
+    _produtoController.loadProdutos();
     super.initState();
-    _loadProdutos();
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-
-  Future<void> _loadProdutos() async {
-    final data = await rootBundle.loadString('assets/produtos.json');
-    final jsonList = json.decode(data) as List<dynamic>;
-    setState(() {
-      _produtos = jsonList.map((e) => Produto(
-        nome: e['nome'],
-        preco: e['preco'],
-        categoria: e['categoria']
-        )).toList();
-    });
-  }
-
-  Future<void> _saveProdutos() async {
-    final appDocDir = await getApplicationDocumentDirectory();
-    final filePath = '${appDocDir.path}/produtos.json';
-    final jsonList = _produtos.map((produto) => produto.toJson());
-    await File(filePath).writeAsString(json.encode(jsonList));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Persistência JSON'),
+        backgroundColor: Color.fromARGB(255, 255, 228, 171),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+              child: FutureBuilder<List<Produto>>(
+                  future: _produtoController.loadProdutos(),
+                  builder: (context, snapshot) {
+                    if (_produtoController.produtos.isNotEmpty) {
+                      return ListView.builder(
+                        itemCount: _produtoController.produtos.length,
+                        itemBuilder: (context, index) {
+                          final produto = _produtoController.produtos[index];
+                          return ListTile(
+                            title: Text(produto.nome),
+                            subtitle: Text(
+                                'Preço: ${produto.preco.toStringAsFixed(2)} - Categoria: ${produto.categoria}'),
+                          );
+                        },
+                      );
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: Color.fromARGB(255, 255, 228, 171),
+                        ),
+                      );
+                    }
+                  })),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.add),
+      ),
+    );
   }
 }
