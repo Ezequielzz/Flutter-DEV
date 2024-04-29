@@ -1,0 +1,20 @@
+[
+    {
+        "nome": "Fonte 600W",
+        "preco": 500.00,
+        "categoria": "Eletrônico",
+        "imagem": "assets/img/fonte.jpg"
+    },
+    {
+        "nome": "Teclado Mecânico",
+        "preco": 600.00,
+        "categoria": "Periférico",
+        "imagem": "assets/img/teclado.jpg"
+    },
+    {
+        "nome": "Camiseta Confortável",
+        "preco": 50.00,
+        "categoria": "Vestuário",
+        "imagem": "assets/img/camiseta.jpg"
+    }
+]

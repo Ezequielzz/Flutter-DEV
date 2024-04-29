@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:persistencia_json/View/Home.dart';
+import 'package:persistencia_json2/View/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,9 +11,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Persistência JSON',
-      color: Color.fromARGB(255, 255, 228, 171),
+      title: 'ProdutoJson',
+      theme: ThemeData(
+        primarySwatch: Colors.red
+      ),
       home: HomePage(),
     );
   }
 }
+
+

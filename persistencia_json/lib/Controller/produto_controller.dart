@@ -19,7 +19,6 @@ class ProdutoController {
     // Converte os Objetos em uma Lista Dinâmica
     // Converte os objetos da Lista em instâncias de Produto e adiciona à lista de produtos
     produtos.addAll(jsonList.map((e) => Produto.fromJson(e)));
-
     return produtos;
   }
   
