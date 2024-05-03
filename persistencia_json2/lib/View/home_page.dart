@@ -31,9 +31,10 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) {
                       final produto = controller.produtos[index];
                       return ListTile(
+                        leading: Image.asset(produto.imagem),
                         title: Text(produto.nome),
                         subtitle: Text(
-                            'Preço: ${produto.preco.toStringAsFixed(2)} - Categoria: ${produto.categoria}'),
+                            'Preço: R\$${produto.preco.toStringAsFixed(2)} - Categoria: ${produto.categoria}'),
                         onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(

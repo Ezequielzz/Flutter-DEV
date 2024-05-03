@@ -4,9 +4,7 @@ import 'package:persistencia_json2/Model/Produtos.dart';
 class ProdutoPage extends StatelessWidget {
   Produto produto;
 
-  ProdutoPage({
-    required this.produto
-  });
+  ProdutoPage({required this.produto});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +16,22 @@ class ProdutoPage extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Text(produto.nome),
-            Text('${produto.preco.toStringAsFixed(2)}'),
-            Text(produto.categoria),
-            Image(image: AssetImage(produto.imagem))
+            Text(
+              produto.nome,
+              style: TextStyle(fontSize: 20),
+            ),
+            Text(
+              'R\$${produto.preco.toStringAsFixed(2)}',
+              style: TextStyle(fontSize: 20),
+            ),
+            Text(
+              produto.categoria,
+              style: TextStyle(fontSize: 20),
+            ),
+            Image(
+              image: AssetImage(produto.imagem),
+              width: 200,
+            )
           ],
         ),
       ),
