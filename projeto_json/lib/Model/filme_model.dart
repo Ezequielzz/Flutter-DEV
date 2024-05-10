@@ -16,7 +16,7 @@ class Filme {
   final int duracao;
   final int ano;
   final int classificacao;
-  final List<String> elenco;
+  final String elenco; // Trocar para string
   final String imagem;
 
   Filme({
