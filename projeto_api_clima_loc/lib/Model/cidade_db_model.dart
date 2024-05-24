@@ -2,7 +2,7 @@ class CidadeDb {
   // Atributos
   int? id;
   final String nomeCidade;
-  final int favorito;
+  int favorito;
 
   CidadeDb({this.id, required this.nomeCidade, required this.favorito});
 

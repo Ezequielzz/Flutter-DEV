@@ -8,8 +8,8 @@ class CidadeDbService {
   static const String TABLE_NOME = 'cidades'; // Nome da tabela
   static const String
       CREATE_CIDADES_TABLE_SCRIPT = // Script SQL para criar a tabela
-      "CREATE TABLE IF NOT EXISTS (id SERIAL," +
-          "nomecidade UNIQUE TEXT, favoritos BIT)";
+      "CREATE TABLE IF NOT EXISTS $TABLE_NOME (id SERIAL, " +
+          "nomecidade TEXT UNIQUE, favorito INTEGER)";
 
   // GetDatabase
   Future<Database> _getDatabase() async {
@@ -33,6 +33,16 @@ class CidadeDbService {
       print(ex);
       return;
     }
+  }
+
+  // Método para obter todas as cidades do banco de dados
+  Future<List<Map<String, dynamic>>> getCidade(String nomeCidade) async {
+    Database db = await _getDatabase();
+    List<Map<String, dynamic>> result = await db.query(TABLE_NOME,
+    where: 'nomecidade = ?',
+    whereArgs: [nomeCidade]);
+    db.close();
+    return result;
   }
 
   // Método para obter todas as cidades do banco de dados

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_api_clima_loc/Controller/cidade_db_controller.dart';
 import 'package:projeto_api_clima_loc/Controller/weather_controller.dart';
 import 'package:projeto_api_clima_loc/Model/cidade_db_model.dart';
-import 'package:projeto_api_clima_loc/Screens/citydetail.dart';
+import 'package:projeto_api_clima_loc/Screens/city_detail_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -55,7 +55,34 @@ class _SearchScreenState extends State<SearchScreen> {
                         }
                       },
                       child: const Text('Search'),
-                    )
+                    ),
+                    const SizedBox(height: 20),
+                    Expanded(
+                        child: FutureBuilder(
+                            future: _cidadeDbController.getAllCidades(),
+                            builder: (context, snapshot) {
+                              if (_cidadeDbController.getCidades().isEmpty) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              } else {
+                                return ListView.builder(
+                                    itemCount:
+                                        _cidadeDbController.getCidades().length,
+                                    itemBuilder: (context, index) {
+                                      final reversedIndex = _cidadeDbController.getCidades().length - index - 1;
+                                      return ListTile(
+                                        title: Text(_cidadeDbController
+                                            .getCidades()[reversedIndex]
+                                            .nomeCidade),
+                                        onTap: () {
+                                          _buscarCidade(_cidadeDbController
+                                              .getCidades()[reversedIndex]
+                                              .nomeCidade);
+                                        },
+                                      );
+                                    });
+                              }
+                            }))
                   ]))),
         ));
   }
@@ -72,6 +99,9 @@ class _SearchScreenState extends State<SearchScreen> {
           context,
           MaterialPageRoute(
               builder: (context) => CityDetailsScreen(city: city)));
+              setState(() {
+                _cidadeDbController.getCidades().clear();
+              });
     } else {
       _cityController.clear();
       // Snackbar

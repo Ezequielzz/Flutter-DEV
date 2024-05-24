@@ -30,4 +30,23 @@ class CidadeDbController {
       print(e);
     }
   }
+
+  Future<CidadeDb?> getCidade(String nomeCidade) async {
+    try {
+      List<Map<String, dynamic>> map = await _dbService.getCidade(nomeCidade);
+      return CidadeDb.fromMap(map.first);
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<void> update(CidadeDb db) async {
+    try {
+      await _dbService.updateCidade(db);
+      print("atualizado");
+    } catch (e) {
+      print(e);
+    }
+  }
 }

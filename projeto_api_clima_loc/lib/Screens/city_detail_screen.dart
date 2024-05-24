@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_api_clima_loc/Controller/cidade_db_controller.dart';
 import 'package:projeto_api_clima_loc/Controller/weather_controller.dart';
+import 'package:projeto_api_clima_loc/Model/cidade_db_model.dart';
 
 class CityDetailsScreen extends StatefulWidget {
   final String city;
@@ -11,7 +13,24 @@ class CityDetailsScreen extends StatefulWidget {
 
 class _CityDetailsScreenState extends State<CityDetailsScreen> {
   final WeatherController _controller = WeatherController();
+  final CidadeDbController _dbController = CidadeDbController();
+  late CidadeDb cidadeDb;
   bool _isFavorited = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> favoriteState(String city) async {
+    cidadeDb = (await _dbController.getCidade(widget.city))!;
+    if (cidadeDb.favorito == 0) {
+      _isFavorited = false;
+    } else {
+      _isFavorited = true;
+    }
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +67,14 @@ class _CityDetailsScreenState extends State<CityDetailsScreen> {
                             setState(() {
                               _isFavorited = !_isFavorited;
                             });
+                            if (_isFavorited == true) {
+                              cidadeDb.favorito = 1;
+
+                              _dbController.update(cidadeDb);
+                            } else {
+                              cidadeDb.favorito = 0;
+                              _dbController.update(cidadeDb);
+                            }
                           },
                           icon: _isFavorited
                               ? Icon(Icons.star)
