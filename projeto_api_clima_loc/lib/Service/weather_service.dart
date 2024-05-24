@@ -7,7 +7,7 @@ class WeatherService {
   final String baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
 
   // Métodos
-  Future<Map<String, dynamic>> getWeather(String city) async {
+  Future<Map<String, dynamic>> getFromWeatherService(String city) async {
     final url = Uri.parse('$baseUrl?q=$city&appid=$apiKey');
     final response = await http.get(url);
     if (response.statusCode == 200) {
@@ -17,7 +17,7 @@ class WeatherService {
     }
   }
 
-  Future<Map<String, dynamic>> getWeatherByLocation(double lat, double lon) async {
+  Future<Map<String, dynamic>> getFromWeatherServiceByLocation(double lat, double lon) async {
     final url = Uri.parse('$baseUrl?lat=$lat&lon=$lon&appid=$apiKey');
     final response = await http.get(url);
     if (response.statusCode == 200) {

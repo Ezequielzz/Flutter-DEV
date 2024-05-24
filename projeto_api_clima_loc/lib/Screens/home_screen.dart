@@ -25,8 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
       //geoLocator
       Position _locator = await Geolocator.getCurrentPosition();
       print(_locator.latitude);
-      print(_locator.longitude);
-      _controller.getFromWeatherServiceLocation(
+      _controller.getWeatherLocation(
           _locator.latitude, _locator.longitude);
       setState(() {});
     } catch (e) {
@@ -44,8 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Color.fromARGB(255, 251, 255, 0),
-        foregroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 0, 225, 255),
+        foregroundColor: Color.fromARGB(255, 255, 255, 255),
       ),
       body: Center(
           child: Column(
@@ -53,16 +52,16 @@ class _HomeScreenState extends State<HomeScreen> {
           Row(
             children: [
               IconButton(
+                icon: Icon(Icons.search),
                 onPressed: () {
                   Navigator.pushNamed(context, '/search');
                 },
-                icon: const Icon(Icons.search),
               ),
               IconButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/favorite');
+                  Navigator.pushNamed(context, '/favorites');
                 },
-                icon: const Icon(Icons.star),
+                icon: Icon(Icons.star),
               ),
             ],
           ),
@@ -70,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
           _controller.listWeather.isEmpty
               ? Column(
                   children: [
-                    Text("Carregando..."),
+                    CircularProgressIndicator(color: Color.fromARGB(255, 0, 225, 255)),
                     IconButton(
                       icon: const Icon(Icons.refresh),
                       onPressed: () {
@@ -80,11 +79,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 )
               : Column(children: [
-                  Text(_controller.listWeather[0].city),
-                  Text(_controller.listWeather[0].description),
-                  Text((_controller.listWeather[0].temp -273).toString()),
-                  Text((_controller.listWeather[0].tempMin -273).toString()),
-                  Text((_controller.listWeather[0].tempMax -273).toString()),
+                  Text(_controller.listWeather.last.city),
+                  Text(_controller.listWeather.last.description),
+                  Text('Temperatura atual: ' + (_controller.listWeather.last.temp - 273).toStringAsFixed(0) + '°'),
+                  Text('Temperatura mínima: ' + (_controller.listWeather.last.tempMin - 273).toStringAsFixed(0) + '°'),
+                  Text('Temperatura máxima: ' +(_controller.listWeather.last.tempMax - 273).toStringAsFixed(0) + '°'),
                   IconButton(
                     icon: const Icon(Icons.refresh),
                     onPressed: () {
