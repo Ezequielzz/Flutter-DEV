@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:json_online/View/filme_cadastro_screen.dart';
+import 'package:json_online/View/usuario_cadastro_screen.dart';
 
 
 void main() {
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: FilmeCadastroScreen(),
+      home: const UsuarioCadastroScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
