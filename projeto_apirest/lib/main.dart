@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_apirest/Screens/cadatro_screen.dart';
 import 'package:projeto_apirest/Screens/home_screen.dart';
 import 'package:projeto_apirest/Screens/produtos_screen.dart';
 
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home': (context) => const HomeScreen(),
         '/listar': (context) => const ProdutoScreen(),
+        '/cadastrar': (context) => const CadatroScreen()
       },
     );
   }
