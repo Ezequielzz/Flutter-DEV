@@ -44,13 +44,6 @@ class HomeScreen extends StatelessWidget {
               // Add your search functionality here
             },
           ),
-          IconButton(
-            icon: Icon(Icons.notifications,
-                color: const Color.fromARGB(255, 0, 0, 0)),
-            onPressed: () {
-              // Add your notifications functionality here
-            },
-          ),
         ],
       ),
       body: Container(
