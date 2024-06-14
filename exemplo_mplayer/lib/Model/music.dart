@@ -6,12 +6,12 @@ class Music{
   //costrutor
   Music({required this.title, required this.artist, required this.url});
 
-  //fromJson
-  factory Music.fromJson(Map<String, dynamic> json){
+  //fromMap
+  factory Music.fromMap(Map<String, dynamic> map){
     return Music(
-      title: json['title'],
-      artist: json['artist'],
-      url: json['url'],
+      title: map['title'],
+      artist: map['artist'],
+      url: map['url'],
     );
   }
   

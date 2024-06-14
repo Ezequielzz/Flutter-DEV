@@ -25,4 +25,10 @@ class TodolistController {
 
     return _list;
   }
+
+  Future<void> getFromFirebase(String userId) async {
+    QuerySnapshot querySnapshot = await _firestore.collection('todolist').where('userid', isEqualTo: userId).get();
+    List<dynamic> result = querySnapshot.docs as List;
+    _list = result.map((doc)=>Todolist.fromJson(doc.data())).toList();
+  }
 }

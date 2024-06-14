@@ -13,8 +13,23 @@ class TodolistScreen extends StatefulWidget {
 }
 
 class _TodolistScreenState extends State<TodolistScreen> {
+  final TextEditingController _tituloController = TextEditingController();
   final TodolistController _controller = TodolistController();
   final AuthFirebase _authFirebase = AuthFirebase();
+
+  Future<void> _getTodolist(String userId) async {
+    try {
+      _controller.getFromFirebase(userId);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getTodolist(widget.user.uid);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +38,12 @@ class _TodolistScreenState extends State<TodolistScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.menu, color: const Color.fromARGB(255, 0, 0, 0)),
+          icon: const Icon(Icons.menu, color: Color.fromARGB(255, 0, 0, 0)),
           onPressed: () {
             Scaffold.of(context).openDrawer();
           },
         ),
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(width: 50),
@@ -52,14 +67,14 @@ class _TodolistScreenState extends State<TodolistScreen> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.search, color: const Color.fromARGB(255, 0, 0, 0)),
+            icon: const Icon(Icons.search, color: Color.fromARGB(255, 0, 0, 0)),
             onPressed: () {
               // Add your search functionality here
             },
           ),
           IconButton(
-            icon: Icon(Icons.exit_to_app,
-                color: const Color.fromARGB(255, 0, 0, 0)),
+            icon: const Icon(Icons.exit_to_app,
+                color: Color.fromARGB(255, 0, 0, 0)),
             onPressed: () {
               _authFirebase.signOut();
               Navigator.of(context).pushReplacementNamed('/home');
@@ -67,27 +82,49 @@ class _TodolistScreenState extends State<TodolistScreen> {
           ),
         ],
       ),
-      body: FutureBuilder<List<Todolist>>(
-        future: _controller.listar(widget.user.uid), // Chama a função de buscar todos os Todolist do usuário
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator()); // Exibe um indicador de carregamento
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Erro: ${snapshot.error}')); // Exibe uma mensagem de erro
-          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('Nenhuma tarefa encontrada.')); // Exibe uma mensagem quando não há tarefas
-          } else {
-            return ListView.builder(
-              shrinkWrap: true,
-              itemCount: snapshot.data!.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(snapshot.data![index].titulo), // Exibe o título da tarefa
-                );
-              },
-            );
-          }
-        },
+      body: Center(
+        child: Column(
+          children: [
+            FutureBuilder(
+                future: _getTodolist(widget.user.uid),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  } else if (_controller.list.isEmpty) {
+                    return const Text(
+                        'Nenhuma tarefa encontrada...');
+                  } else {
+                    return Expanded(
+                      child: ListView.builder(
+                          itemCount: _controller.list.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(_controller.list[index].titulo),
+                              trailing: IconButton(
+                                icon: const Icon(Icons.delete),
+                                onPressed: () {
+                                  _controller
+                                      .delete(_controller.list[index].id);
+                                },
+                              ),
+                            );
+                          }),
+                    );
+                  }
+                }),
+            FloatingActionButton(
+                child: Icon(Icons.add),
+                onPressed: () {
+                  _controller.add(Todolist(
+                      id: "",
+                      titulo: _tituloController.text,
+                      userId: widget.user.uid,
+                      timestamp: DateTime.now()));
+                  Navigator.of(context).pop();
+                  setState(() {});
+                })
+          ],
+        ),
       ),
     );
   }

@@ -13,7 +13,6 @@ class Todolist {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
       'titulo': titulo,
       'userId': userId,
       'timestamp': timestamp.toIso8601String(),
@@ -22,7 +21,7 @@ class Todolist {
 
   factory Todolist.fromJson(Map<String, dynamic> json) {
     return Todolist(
-      id: json['id'],
+      id: json['doc'],
       titulo: json['titulo'],
       userId: json['userId'],
       timestamp: DateTime.parse(json['timestamp']),
