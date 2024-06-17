@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:exemplo_firebase_ezequielzz/Model/todolist.dart';
+import 'package:firebase_api/Model/todolist.dart';
 
 class TodolistController {
   List<Todolist> _list = [];

@@ -42,17 +42,19 @@ class _CityDetailsScreenState extends State<CityDetailsScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Color.fromARGB(255, 0, 225, 255),
-        foregroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: if (_controller.listWeather.last.temp - 273 > 25) {
+          const Color.fromARGB(255, 0, 225, 255),
+        } 
+        foregroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       body: Padding(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         child: Center(
           child: FutureBuilder(
             future: _controller.getWeather(widget.city),
             builder: (context, snapshot) {
               if (_controller.listWeather.isEmpty) {
-                return CircularProgressIndicator(
+                return const CircularProgressIndicator(
                     color: Color.fromARGB(255, 0, 225, 255));
               } else {
                 return Column(
@@ -77,22 +79,22 @@ class _CityDetailsScreenState extends State<CityDetailsScreen> {
                             }
                           },
                           icon: _isFavorited
-                              ? Icon(Icons.star)
-                              : Icon(Icons.star_border_outlined),
+                              ? const Icon(Icons.star)
+                              : const Icon(Icons.star_border_outlined),
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 12,
                     ),
                     Text(_controller.listWeather.last.description),
-                    SizedBox(
+                    const SizedBox(
                       height: 12,
                     ),
                     Text((_controller.listWeather.last.temp - 273)
                             .toStringAsFixed(0) +
                         '°'),
-                    SizedBox(
+                    const SizedBox(
                       height: 12,
                     ),
                   ],

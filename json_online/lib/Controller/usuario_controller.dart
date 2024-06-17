@@ -6,7 +6,8 @@ class UsuarioController {
   UsuarioService _service = UsuarioService(); // Instância do serviço de usuário
 
   Future<void> getUsuario(int id) async {
-    Usuario usuario = Usuario.fromJson(await _service.getFromUsuarioService(id.toString())); // Busca um usuário pelo ID e converte para um objeto Usuario
+    Usuario usuario = Usuario.fromJson(await _service.getFromUsuarioService(id
+        .toString())); // Busca um usuário pelo ID e converte para um objeto Usuario
     listUsuario.add(usuario); // Adiciona o usuário à lista
   }
 
@@ -16,7 +17,17 @@ class UsuarioController {
   }
 
   Future<void> addUsuario(Usuario usuario) async {
-    await _service.postToUsuarioService(usuario.toJson()); // Adiciona um novo usuário
+    await _service
+        .postToUsuarioService(usuario.toJson()); // Adiciona um novo usuário
     listUsuario.add(usuario); // Adiciona o usuário à lista local
+  }
+
+  Future<void> updateUsuario(Usuario usuario) async {
+    await _service.updateUsuario(usuario.id.toString(), usuario.toJson());
+  }
+
+  Future<void> deleteUsuario(int id) async {
+    await _service.deleteUsuario(id.toString());
+    listUsuario.removeWhere((usuario) => usuario.id == id);
   }
 }

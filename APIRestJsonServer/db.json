@@ -1,19 +1,19 @@
 {
-    "produto":[
+    "usuarios":[
         {
             "id":1,
             "nome": "Camiseta Confortável",
-            "preco": 50.00
+            "email": "50.00"
         },
         {
             "id":2,
             "nome": "Camisa 1 Sao Paulo 24/25",
-            "preco": 349.90
+            "email": "349.90"
         },
         {
             "id":3,
             "nome": "Camisa 2 Sao Paulo 24/25",
-            "preco": 349.90
+            "email": "349.90"
         }
     ]
 }

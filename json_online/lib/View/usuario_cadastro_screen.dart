@@ -104,6 +104,13 @@ class _UsuarioCadastroScreenState extends State<UsuarioCadastroScreen> {
                         itemBuilder: (context, index) {
                           return ListTile(
                             title: Text(snapshot.data![index].nome), // Exibe o nome do usuário
+                            subtitle: Text(snapshot.data![index].email), // Exibe o email do usuário
+                            trailing: IconButton(
+                              icon: Icon(Icons.delete),
+                              onPressed: () {
+                                _deletarUsuario(snapshot.data![index].id); // Chama a função de deletar usuário
+                              },
+                            ),
                           );
                         },
                       );
@@ -125,6 +132,7 @@ class _UsuarioCadastroScreenState extends State<UsuarioCadastroScreen> {
       email: _emailController.text,
     ); // Retorna um objeto usuário com os dados preenchidos
   }
+ 
 
   void _cadastrarUsuario() async {
     try {
@@ -141,6 +149,26 @@ class _UsuarioCadastroScreenState extends State<UsuarioCadastroScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Erro ao cadastrar usuario: $e'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
+
+  void _deletarUsuario(int id) async {
+    try {
+      await _controller.deleteUsuario(id); // Deleta o usuário
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Usuario deletado com sucesso'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      setState(() {}); // Atualiza a interface após deletar o usuário
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Erro ao deletar usuario: $e'),
           duration: Duration(seconds: 2),
         ),
       );
