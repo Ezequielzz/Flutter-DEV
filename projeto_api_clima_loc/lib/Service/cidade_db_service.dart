@@ -53,6 +53,17 @@ class CidadeDbService {
     return result;
   }
 
+  Future<List<Map<String, dynamic>>> getFavoritedCidades() async {
+    Database db = await _getDatabase();
+    List<Map<String, dynamic>> result = await db.query(
+      TABLE_NOME,
+      where: 'favorito = ?',
+      whereArgs: [1],
+    );
+    db.close();
+    return result;
+  }
+
   // Método para inserir cidades no banco de dados
   Future<void> insertCidade(CidadeDb cidade) async {
     Database db = await _getDatabase();
