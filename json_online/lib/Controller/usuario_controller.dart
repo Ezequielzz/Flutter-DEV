@@ -33,8 +33,3 @@ class UsuarioController {
     }
   }
 }
-  Future<void> deleteUsuario(int id) async {
-    await _service.deleteUsuario(id.toString());
-    listUsuario.removeWhere((usuario) => usuario.id == id);
-  }
-}

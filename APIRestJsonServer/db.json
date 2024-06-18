@@ -1,19 +1,19 @@
 {
-    "usuarios":[
-        {
-            "id":1,
-            "nome": "Camiseta Confortável",
-            "email": "50.00"
-        },
-        {
-            "id":2,
-            "nome": "Camisa 1 Sao Paulo 24/25",
-            "email": "349.90"
-        },
-        {
-            "id":3,
-            "nome": "Camisa 2 Sao Paulo 24/25",
-            "email": "349.90"
-        }
-    ]
+  "usuarios": [
+    {
+      "id": "1",
+      "nome": "Teste",
+      "email": "teste@gmail.com"
+    },
+    {
+      "id": "2",
+      "nome": "Camisa 1 Sao Paulo 24/25",
+      "email": "349.90"
+    },
+    {
+      "id": "3",
+      "nome": "Camisa 2 Sao Paulo 24/25",
+      "email": "349.90"
+    }
+  ]
 }

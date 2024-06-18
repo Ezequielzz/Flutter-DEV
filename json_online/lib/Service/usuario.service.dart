@@ -73,8 +73,3 @@ class UsuarioService {
     }
   }
 }
-    if (response.statusCode != 200) {
-      throw Exception('Falha ao atualizar usuário...');
-    }
-  }
-}
