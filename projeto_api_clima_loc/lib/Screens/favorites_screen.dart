@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_api_clima_loc/Controller/cidade_db_controller.dart';
+import 'package:projeto_api_clima_loc/Controller/weather_controller.dart';
+import 'package:projeto_api_clima_loc/Model/cidade_db_model.dart';
+import 'package:projeto_api_clima_loc/Screens/city_detail_screen.dart';
 
 class FavoritesScreen extends StatefulWidget {
   @override
