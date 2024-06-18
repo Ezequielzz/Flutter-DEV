@@ -16,6 +16,8 @@ class _UsuarioCadastroScreenState extends State<UsuarioCadastroScreen> {
   final TextEditingController _emailController = TextEditingController(); // Controlador para o campo de email
 
   UsuarioController _controller = UsuarioController(); // Instância do controlador de usuário
+  bool _isEditing = false; // Indica se está em modo de edição
+  int? _editingUserId; // ID do usuário em edição
 
   @override
   void initState() {
@@ -79,10 +81,14 @@ class _UsuarioCadastroScreenState extends State<UsuarioCadastroScreen> {
                     ElevatedButton(
                       onPressed: () {
                         if (_formkey.currentState!.validate()) {
-                          _cadastrarUsuario(); // Chama a função de cadastrar usuário
+                          if (_isEditing) {
+                            _atualizarUsuario(); // Chama a função de atualizar usuário
+                          } else {
+                            _cadastrarUsuario(); // Chama a função de cadastrar usuário
+                          }
                         }
                       },
-                      child: const Text("Cadastrar"),
+                      child: Text(_isEditing ? "Atualizar" : "Cadastrar"),
                     ),
                   ],
                 ),
@@ -105,11 +111,22 @@ class _UsuarioCadastroScreenState extends State<UsuarioCadastroScreen> {
                           return ListTile(
                             title: Text(snapshot.data![index].nome), // Exibe o nome do usuário
                             subtitle: Text(snapshot.data![index].email), // Exibe o email do usuário
-                            trailing: IconButton(
-                              icon: Icon(Icons.delete),
-                              onPressed: () {
-                                _deletarUsuario(snapshot.data![index].id); // Chama a função de deletar usuário
-                              },
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: Icon(Icons.edit),
+                                  onPressed: () {
+                                    _editarUsuario(snapshot.data![index]); // Chama a função de editar usuário
+                                  },
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () {
+                                    _deletarUsuario(snapshot.data![index].id); // Chama a função de deletar usuário
+                                  },
+                                ),
+                              ],
                             ),
                           );
                         },
@@ -132,7 +149,6 @@ class _UsuarioCadastroScreenState extends State<UsuarioCadastroScreen> {
       email: _emailController.text,
     ); // Retorna um objeto usuário com os dados preenchidos
   }
- 
 
   void _cadastrarUsuario() async {
     try {
@@ -175,9 +191,44 @@ class _UsuarioCadastroScreenState extends State<UsuarioCadastroScreen> {
     }
   }
 
+  void _editarUsuario(Usuario usuario) {
+    _idController.text = usuario.id.toString();
+    _nomeController.text = usuario.nome;
+    _emailController.text = usuario.email;
+    _isEditing = true;
+    _editingUserId = usuario.id;
+  }
+
+  void _atualizarUsuario() async {
+    try {
+      Usuario usuario = getUsuario();
+      await _controller.updateUsuario(_editingUserId!, usuario); // Atualiza o usuário
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Usuario atualizado com sucesso'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      _limpar(); // Limpa os campos após a atualização
+      setState(() {
+        _isEditing = false; // Sai do modo de edição
+        _editingUserId = null;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Erro ao atualizar usuario: $e'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
+  }
+
   void _limpar() {
     _idController.clear();
     _nomeController.clear();
     _emailController.clear();
+    _isEditing = false;
+    _editingUserId = null;
   }
 }
